@@ -4,11 +4,11 @@ namespace WebApi.Models;
 public class Jogo
 {
     [JsonProperty(PropertyName = "info")]
-    public Info? Info { get; set; }
+    public InfoJogo? InfoJogo { get; set; }
 
     [JsonProperty(PropertyName = "cheapestPriceEver")]
-    public MaisBaratoSempre? MaisBaratoSempre { get; set; }
+    public MaisBaratoSempreJogo? MaisBaratoSempreJogo { get; set; }
 
     [JsonProperty(PropertyName = "deals")]
-    public List<Desconto>? Desconto { get; set; }
+    public List<DescontoJogo>? DescontoJogo { get; set; }
 }

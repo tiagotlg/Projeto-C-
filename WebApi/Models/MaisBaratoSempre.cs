@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace WebApi.Models;
 
-public class MaisBaratoSempre
+public class MaisBaratoSempreJogo
 {
     [JsonProperty(PropertyName = "price")]
     public string? PrecoMaisBarato { get; set; }

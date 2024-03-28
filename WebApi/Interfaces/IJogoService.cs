@@ -5,4 +5,6 @@ namespace WebApi.Interfaces;
 public interface IJogoService
 {
     Task<ResponseGenerico<JogoResponse>> BuscaJogoPorId(string id);
+    Task<ResponseListaGenerico<List<JogosResponse>>> BuscarPorNome(string nome);
+
 }

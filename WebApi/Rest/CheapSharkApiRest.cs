@@ -33,6 +33,31 @@ public class CheapSharkApiRest : ICheapSharkApi
         return response;
     }
 
+    public async Task<ResponseListaGenerico<Jogos>> BuscarPorNome(string nome)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/games?title={nome}");
+        var response = new ResponseListaGenerico<Jogos>();
+
+        using (var client = new HttpClient())
+        {
+            var responseCheapSharkApi = await client.SendAsync(request);
+            var contentResp = await responseCheapSharkApi.Content.ReadAsStringAsync();
+            var ObjResponse = JsonConvert.DeserializeObject<List<Jogos>>(contentResp);
+
+            if (responseCheapSharkApi.IsSuccessStatusCode)
+            {
+                response.CodigoHttp = responseCheapSharkApi.StatusCode;
+                response.DadosRetorno = ObjResponse;
+            }
+            else
+            {
+                response.CodigoHttp = responseCheapSharkApi.StatusCode;
+                response.ErroRetorno = JsonConvert.DeserializeObject<ExpandoObject>(contentResp);
+            }
+        }
+        return response;
+    }
+
     public Task<ResponseGenerico<Loja>> BuscaLojaPorId()
     {
         throw new NotImplementedException();

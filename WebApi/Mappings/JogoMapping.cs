@@ -11,5 +11,6 @@ public class JogoMapping : Profile
         CreateMap(typeof(ResponseGenerico<>), typeof(ResponseGenerico<>));
         CreateMap<JogoResponse, Jogo>();
         CreateMap<Jogo, JogoResponse>();
+        CreateMap<Jogos, JogosResponse>();
     }
 }
