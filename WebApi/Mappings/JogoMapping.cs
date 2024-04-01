@@ -9,9 +9,9 @@ public class JogoMapping : Profile
     public JogoMapping()
     {
         #region Jogo
-        CreateMap(typeof(ResponseGenerico<>), typeof(ResponseGenerico<>));
-        CreateMap<JogoResponse, Jogo>();
         CreateMap<Jogo, JogoResponse>();
+        CreateMap<ResponseGenerico<Jogo>, ResponseGenerico<JogoResponse>>()
+            .ConstructUsing(o => new ResponseGenerico<JogoResponse>());
         #endregion
 
         #region Jogos

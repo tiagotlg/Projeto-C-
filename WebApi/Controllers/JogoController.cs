@@ -40,7 +40,7 @@ public class JogoController : ControllerBase
         var response = await _jogoService.BuscarPorNome(nome);
 
         if (response.CodigoHttp == HttpStatusCode.OK)
-            return Ok(response);
+            return Ok(response.DadosRetorno);
         else
             return StatusCode((int)response.CodigoHttp, response.ErroRetorno);
     }
