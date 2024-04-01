@@ -21,9 +21,9 @@ public class JogoService : IJogoService
         return _mapper.Map<ResponseGenerico<JogoResponse>>(jogo);
     }
 
-    public async Task<ResponseListaGenerico<List<JogosResponse>>> BuscarPorNome(string nome)
+    public async Task<ResponseListaGenerico<JogosResponse>> BuscarPorNome(string nome)
     {
         var jogos = await _cheapSharkApi.BuscarPorNome(nome);
-        return _mapper.Map<ResponseListaGenerico<List<JogosResponse>>>(jogos.DadosRetorno);
+        return _mapper.Map<ResponseListaGenerico<JogosResponse>>(jogos);
     }
 }
