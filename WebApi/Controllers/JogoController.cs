@@ -15,7 +15,7 @@ public class JogoController : ControllerBase
         _jogoService = jogoService;
     }
 
-    [HttpGet("Busca/{id}")]
+    [HttpGet("BuscaPorId/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

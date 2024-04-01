@@ -13,10 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IJogoService, JogoService>();
-// builder.Services.AddSingleton<>(ILojaService, LojaService);
+builder.Services.AddSingleton<IDescontoService, DescontoService>();
 builder.Services.AddSingleton<ICheapSharkApi, CheapSharkApiRest>();
 
 builder.Services.AddAutoMapper(typeof(JogoMapping));
+builder.Services.AddAutoMapper(typeof(DescontoMapping));
 
 var app = builder.Build();
 

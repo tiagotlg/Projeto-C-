@@ -10,5 +10,5 @@ public class Jogo
     public MaisBaratoSempreJogo? MaisBaratoSempreJogo { get; set; }
 
     [JsonProperty(PropertyName = "deals")]
-    public List<DescontoJogo>? DescontoJogo { get; set; }
+    public List<DescontoJogoResumo>? DescontoJogoResumo { get; set; }
 }

@@ -8,5 +8,5 @@ public class JogoResponse
 
     public MaisBaratoSempreJogo? MaisBaratoSempreJogo { get; set; }
 
-    public List<DescontoJogo>? DescontoJogo { get; set; }
+    public List<DescontoJogoResumo>? DescontoJogoResumo { get; set; }
 }
