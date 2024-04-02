@@ -15,6 +15,21 @@ public class DescontoController : ControllerBase
         _descontoService = descontoService;
     }
 
+    [HttpGet("BuscaDescontoPorId/{descontoId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> BuscarDescontoId([FromRoute] string descontoId)
+    {
+        var response = await _descontoService.BuscaDescontoPorId(descontoId);
+
+        if (response.CodigoHttp == HttpStatusCode.OK)
+            return Ok(response.DadosRetorno);
+        else
+            return StatusCode((int)response.CodigoHttp, response.ErroRetorno);
+    }
+
     [HttpGet("BuscaPorDescontos")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -4,7 +4,7 @@ namespace WebApi.Models;
 public class Jogo
 {
     [JsonProperty(PropertyName = "info")]
-    public InfoJogo? InfoJogo { get; set; }
+    public InfoJogoResumo? InfoJogoResumo { get; set; }
 
     [JsonProperty(PropertyName = "cheapestPriceEver")]
     public MaisBaratoSempreJogo? MaisBaratoSempreJogo { get; set; }

@@ -4,7 +4,7 @@ namespace WebApi.Dtos;
 
 public class JogoResponse
 {
-    public InfoJogo? InfoJogo { get; set; }
+    public InfoJogoResumo? InfoJogoResumo { get; set; }
 
     public MaisBaratoSempreJogo? MaisBaratoSempreJogo { get; set; }
 
