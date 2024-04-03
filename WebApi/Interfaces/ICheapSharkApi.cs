@@ -9,7 +9,7 @@ namespace WebApi.Interfaces
         Task<ResponseListaGenerico<Jogos>> BuscarPorNome(string nome);
         Task<ResponseGenerico<Desconto>> BuscaDescontoPorId(string descontoId);
         Task<ResponseListaGenerico<ListaDescontos>> BuscaPorDescontos(int lojaId, int precoMaximo, int precoMinimo);
-        // Task<ResponseGenerico<List<Loja>>> BuscaTodasLojas();
-        // Task<ResponseGenerico<Loja>> BuscaLojaPorId();
+        Task<ResponseListaGenerico<Loja>> BuscarLoja();
+        // Task<ResponseListaGenerico<Loja>> BuscaLojaPorId();
     }
 }

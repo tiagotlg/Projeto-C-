@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WebApi.Dtos;
 
-namespace WebApi.Interfaces
+namespace WebApi.Interfaces;
+
+public interface ILojaService
 {
-    public interface ILojaService
-    {
-        
-    }
+    Task<ResponseListaGenerico<LojaResponse>> BuscarLoja();
 }

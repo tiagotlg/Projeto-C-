@@ -60,7 +60,7 @@ public class CheapSharkApiRest : ICheapSharkApi
 
     public async Task<ResponseGenerico<Desconto>> BuscaDescontoPorId(string descontoId)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/deals?id=X8sebHhbc1Ga0dTkgg59WgyM506af9oNZZJLU9uSrX8%3D");
+        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/deals?id={descontoId}");
         var response = new ResponseGenerico<Desconto>();
 
         using (var client = new HttpClient())
@@ -112,9 +112,29 @@ public class CheapSharkApiRest : ICheapSharkApi
         return response;
     }
 
-    public Task<ResponseGenerico<Loja>> BuscaLojaPorId()
+    public async Task<ResponseListaGenerico<Loja>> BuscarLoja()
     {
-        throw new NotImplementedException();
+        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/stores");
+        var response = new ResponseListaGenerico<Loja>();
+
+        using (var client = new HttpClient())
+        {
+            var responseCheapSharkApi = await client.SendAsync(request);
+            var contentResp = await responseCheapSharkApi.Content.ReadAsStringAsync();
+            var ObjResponse = JsonConvert.DeserializeObject<List<Loja>>(contentResp);
+
+            if (responseCheapSharkApi.IsSuccessStatusCode)
+            {
+                response.CodigoHttp = responseCheapSharkApi.StatusCode;
+                response.DadosRetorno = ObjResponse;
+            }
+            else
+            {
+                response.CodigoHttp = responseCheapSharkApi.StatusCode;
+                response.ErroRetorno = JsonConvert.DeserializeObject<ExpandoObject>(contentResp);
+            }
+        }
+        return response;
     }
 
     public Task<ResponseGenerico<List<Loja>>> BuscaTodasLojas()
