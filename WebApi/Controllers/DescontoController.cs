@@ -30,7 +30,7 @@ public class DescontoController : ControllerBase
             return StatusCode((int)response.CodigoHttp, response.ErroRetorno);
     }
 
-    [HttpGet("BuscaPorDescontos")]
+    [HttpPost("BuscaPorDescontos")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

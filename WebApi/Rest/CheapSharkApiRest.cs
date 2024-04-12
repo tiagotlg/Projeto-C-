@@ -114,7 +114,7 @@ public class CheapSharkApiRest : ICheapSharkApi
 
     public async Task<ResponseListaGenerico<Loja>> BuscarLoja()
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/stores");
+        var request = new HttpRequestMessage(HttpMethod.Post, $"https://www.cheapshark.com/api/1.0/stores");
         var response = new ResponseListaGenerico<Loja>();
 
         using (var client = new HttpClient())
@@ -137,8 +137,4 @@ public class CheapSharkApiRest : ICheapSharkApi
         return response;
     }
 
-    public Task<ResponseGenerico<List<Loja>>> BuscaTodasLojas()
-    {
-        throw new NotImplementedException();
-    }
 }
