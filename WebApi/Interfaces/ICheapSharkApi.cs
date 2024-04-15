@@ -10,6 +10,5 @@ namespace WebApi.Interfaces
         Task<ResponseGenerico<Desconto>> BuscaDescontoPorId(string descontoId);
         Task<ResponseListaGenerico<ListaDescontos>> BuscaPorDescontos(int lojaId, int precoMaximo, int precoMinimo);
         Task<ResponseListaGenerico<Loja>> BuscarLoja();
-        // Task<ResponseListaGenerico<Loja>> BuscaLojaPorId();
     }
 }

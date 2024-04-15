@@ -11,7 +11,7 @@ public class Loja
     public string? Nome { get; set; }
 
     [JsonProperty(PropertyName = "isActive")]
-    public int Status { get; set; }
+    public int? Status { get; set; }
 
     [JsonProperty(PropertyName = "images")]
     public ImagemLoja? ImagemLoja { get; set; }
