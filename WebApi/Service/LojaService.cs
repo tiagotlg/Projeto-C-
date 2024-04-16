@@ -4,16 +4,10 @@ using WebApi.Interfaces;
 
 namespace WebApi.Service;
 
-public class LojaService : ILojaService
+public class LojaService(IMapper mapper, ICheapSharkApi cheapSharkApi) : ILojaService
 {
-    private readonly IMapper _mapper;
-    private readonly ICheapSharkApi _cheapSharkApi;
-
-    public LojaService(IMapper mapper, ICheapSharkApi cheapSharkApi)
-    {
-        _mapper = mapper;
-        _cheapSharkApi = cheapSharkApi;
-    }
+    private readonly IMapper _mapper = mapper;
+    private readonly ICheapSharkApi _cheapSharkApi = cheapSharkApi;
 
     public async Task<ResponseListaGenerico<LojaResponse>> BuscarLoja()
     {

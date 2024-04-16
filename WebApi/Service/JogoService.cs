@@ -4,16 +4,10 @@ using WebApi.Interfaces;
 
 namespace WebApi.Service;
 
-public class JogoService : IJogoService
+public class JogoService(IMapper mapper, ICheapSharkApi cheapSharkApi) : IJogoService
 {
-    private readonly IMapper _mapper;
-    private readonly ICheapSharkApi _cheapSharkApi;
-
-    public JogoService(IMapper mapper, ICheapSharkApi cheapSharkApi)
-    {
-        _mapper = mapper;
-        _cheapSharkApi = cheapSharkApi;
-    }
+    private readonly IMapper _mapper = mapper;
+    private readonly ICheapSharkApi _cheapSharkApi = cheapSharkApi;
 
     public async Task<ResponseGenerico<JogoResponse>> BuscaJogoPorId(string id)
     {

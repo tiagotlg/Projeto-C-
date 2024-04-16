@@ -6,14 +6,9 @@ namespace WebApi.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class LojaController : ControllerBase
+public class LojaController(ILojaService lojaService) : ControllerBase
 {
-    public readonly ILojaService _lojaService;
-
-    public LojaController(ILojaService lojaService)
-    {
-        _lojaService = lojaService;
-    }
+    public readonly ILojaService _lojaService = lojaService;
 
     [HttpGet("BuscarLoja")]
     [ProducesResponseType(StatusCodes.Status200OK)]

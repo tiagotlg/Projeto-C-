@@ -6,14 +6,9 @@ namespace WebApi.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class DescontoController : ControllerBase
+public class DescontoController(IDescontoService descontoService) : ControllerBase
 {
-    public readonly IDescontoService _descontoService;
-
-    public DescontoController(IDescontoService descontoService)
-    {
-        _descontoService = descontoService;
-    }
+    public readonly IDescontoService _descontoService = descontoService;
 
     [HttpGet("BuscaDescontoPorId/{descontoId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
