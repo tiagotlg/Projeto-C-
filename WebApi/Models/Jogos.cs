@@ -2,26 +2,28 @@ using Newtonsoft.Json;
 
 namespace WebApi.Models;
 
-public class Jogos(string? jogoID, string? steamAppID, string? maisBarato, string? maisBaratoID, string? externo, string? nomeInterno, string? thumb)
+public class Jogos
 {
     [JsonProperty(PropertyName = "gameID")]
-    public string? JogoID { get; set; } = jogoID;
+    public string JogoID { get; set; }
 
     [JsonProperty(PropertyName = "steamAppID")]
-    public string? SteamAppID { get; set; } = steamAppID;
+    public string SteamAppID { get; set; }
 
     [JsonProperty(PropertyName = "cheapest")]
-    public string? MaisBarato { get; set; } = maisBarato;
+    public string MaisBarato { get; set; }
 
     [JsonProperty(PropertyName = "cheapestDealID")]
-    public string? MaisBaratoID { get; set; } = maisBaratoID;
+    public string MaisBaratoID { get; set; }
 
     [JsonProperty(PropertyName = "external")]
-    public string? Externo { get; set; } = externo;
+    public string Externo { get; set; }
 
     [JsonProperty(PropertyName = "internalName")]
-    public string? NomeInterno { get; set; } = nomeInterno;
+    public string NomeInterno { get; set; }
 
     [JsonProperty(PropertyName = "thumb")]
-    public string? Thumb { get; set; } = thumb;
+    public string Thumb { get; set; }
+
+    public List<DescontoJogoResumo> Lojas;
 }

@@ -2,11 +2,11 @@ using Newtonsoft.Json;
 
 namespace WebApi.Models;
 
-public class PrecoMaisBarato(string? preco, string? data)
+public class PrecoMaisBarato(string preco, string data)
 {
     [JsonProperty(PropertyName = "price")]
-    public string? Preco { get; set; } = preco;
+    public string Preco { get; set; } = preco;
 
     [JsonProperty(PropertyName = "date")]
-    public string? Data { get; set; } = data;
+    public string Data { get; set; } = data;
 }
