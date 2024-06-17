@@ -40,12 +40,12 @@ public class DescontoController(IDescontoService descontoService) : ControllerBa
             return StatusCode((int)response.CodigoHttp, response.ErroRetorno);
     }
 
-    [HttpPost("BuscaPorDescontosMenor")]
+    [HttpGet("BuscaPorDescontosMenor/{lojaId:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> BuscaDescontosMenor(int lojaId)
+    public async Task<IActionResult> BuscaDescontosMenor([FromRoute] int lojaId)
     {
         var response = await _descontoService.BuscaPorDescontosMenor(lojaId);
 
