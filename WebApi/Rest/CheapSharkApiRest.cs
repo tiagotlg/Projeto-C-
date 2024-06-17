@@ -150,12 +150,12 @@ public class CheapSharkApiRest : ICheapSharkApi
             var contentResp = await responseCheapSharkApi.Content.ReadAsStringAsync();
             var ObjResponse = JsonConvert.DeserializeObject<List<ListaDescontos>>(contentResp);
 
-            List<ListaDescontos> ObjFiltrado = ObjResponse!.Where(o => LojasIds.Contains(o.LojaID)).ToList();
+            // List<ListaDescontos> ObjFiltrado = ObjResponse!.Where(o => LojasIds.Contains(o.LojaID)).ToList();
 
             if (responseCheapSharkApi.IsSuccessStatusCode)
             {
                 response.CodigoHttp = responseCheapSharkApi.StatusCode;
-                response.DadosRetorno = ObjFiltrado;
+                response.DadosRetorno = ObjResponse;
             }
             else
             {
