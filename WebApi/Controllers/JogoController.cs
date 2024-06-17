@@ -6,14 +6,9 @@ namespace WebApi.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class JogoController : ControllerBase
+public class JogoController(IJogoService jogoService) : ControllerBase
 {
-    public readonly IJogoService _jogoService;
-
-    public JogoController(IJogoService jogoService)
-    {
-        _jogoService = jogoService;
-    }
+    public readonly IJogoService _jogoService = jogoService;
 
     [HttpGet("BuscaPorId/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

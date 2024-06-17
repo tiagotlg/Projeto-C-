@@ -10,42 +10,59 @@ public class CheapSharkApiRest : ICheapSharkApi
 {
     public async Task<ResponseGenerico<Jogo>> BuscaJogoPorId(string id)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/games?id={id}");
-        var response = new ResponseGenerico<Jogo>();
+        var requestJogo = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/games?id={id}");
+        var responseJogo = new ResponseGenerico<Jogo>();
 
         using (var client = new HttpClient())
         {
-            var responseCheapSharkApi = await client.SendAsync(request);
+            List<int> LojasIds = [1, 7, 8, 13, 25, 31];
+
+            var responseCheapSharkApi = await client.SendAsync(requestJogo);
             var contentResp = await responseCheapSharkApi.Content.ReadAsStringAsync();
             var ObjResponse = JsonConvert.DeserializeObject<Jogo>(contentResp);
 
+            List<DescontoJogoResumo> ObjFiltrado = ObjResponse.DescontoJogoResumo.Where(o => LojasIds.Contains(o.LojaId)).ToList();
+
             if (responseCheapSharkApi.IsSuccessStatusCode)
             {
-                response.CodigoHttp = responseCheapSharkApi.StatusCode;
-                response.DadosRetorno = ObjResponse;
+                responseJogo.CodigoHttp = responseCheapSharkApi.StatusCode;
+                responseJogo.DadosRetorno = ObjResponse;
+                responseJogo.DadosRetorno.DescontoJogoResumo = ObjFiltrado;
+
             }
             else
             {
-                response.CodigoHttp = responseCheapSharkApi.StatusCode;
-                response.ErroRetorno = JsonConvert.DeserializeObject<ExpandoObject>(contentResp);
+                responseJogo.CodigoHttp = responseCheapSharkApi.StatusCode;
+                responseJogo.ErroRetorno = JsonConvert.DeserializeObject<ExpandoObject>(contentResp);
             }
         }
-        return response;
+        return responseJogo;
     }
 
     public async Task<ResponseListaGenerico<Jogos>> BuscarPorNome(string nome)
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/games?title={nome}");
+        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/games?title={nome}&limit=10");
         var response = new ResponseListaGenerico<Jogos>();
 
         using (var client = new HttpClient())
         {
             var responseCheapSharkApi = await client.SendAsync(request);
             var contentResp = await responseCheapSharkApi.Content.ReadAsStringAsync();
-            var ObjResponse = JsonConvert.DeserializeObject<List<Jogos>>(contentResp);
+            List<Jogos> ObjResponse = JsonConvert.DeserializeObject<List<Jogos>>(contentResp);
+            List<DescontoJogoResumo> lojas = [];
 
             if (responseCheapSharkApi.IsSuccessStatusCode)
             {
+                foreach (var jogo in ObjResponse)
+                {
+                    var buscaJogo = await BuscaJogoPorId(jogo.JogoID);
+                    if (buscaJogo.DadosRetorno.DescontoJogoResumo.Count > 0)
+                    {
+                        lojas = buscaJogo.DadosRetorno.DescontoJogoResumo;
+                        jogo.Lojas = lojas;
+                    }
+                };
+
                 response.CodigoHttp = responseCheapSharkApi.StatusCode;
                 response.DadosRetorno = ObjResponse;
             }
@@ -65,14 +82,19 @@ public class CheapSharkApiRest : ICheapSharkApi
 
         using (var client = new HttpClient())
         {
+            List<string> LojasIds = ["1", "7", "8", "13", "25", "31"];
+
             var responseCheapSharkApi = await client.SendAsync(request);
             var contentResp = await responseCheapSharkApi.Content.ReadAsStringAsync();
             var ObjResponse = JsonConvert.DeserializeObject<Desconto>(contentResp);
+
+            List<LojaMaisBarata> ObjFiltrado = ObjResponse!.LojaMaisBarata.Where(o => LojasIds.Contains(o.LojaId)).ToList();
 
             if (responseCheapSharkApi.IsSuccessStatusCode)
             {
                 response.CodigoHttp = responseCheapSharkApi.StatusCode;
                 response.DadosRetorno = ObjResponse;
+                response.DadosRetorno.LojaMaisBarata = ObjFiltrado;
             }
             else
             {
@@ -122,14 +144,18 @@ public class CheapSharkApiRest : ICheapSharkApi
 
         using (var client = new HttpClient())
         {
+            List<string> LojasIds = ["1", "7", "8", "13", "25", "31"];
+
             var responseCheapSharkApi = await client.SendAsync(request);
             var contentResp = await responseCheapSharkApi.Content.ReadAsStringAsync();
             var ObjResponse = JsonConvert.DeserializeObject<List<ListaDescontos>>(contentResp);
 
+            List<ListaDescontos> ObjFiltrado = ObjResponse!.Where(o => LojasIds.Contains(o.LojaID)).ToList();
+
             if (responseCheapSharkApi.IsSuccessStatusCode)
             {
                 response.CodigoHttp = responseCheapSharkApi.StatusCode;
-                response.DadosRetorno = ObjResponse;
+                response.DadosRetorno = ObjFiltrado;
             }
             else
             {
@@ -147,14 +173,18 @@ public class CheapSharkApiRest : ICheapSharkApi
 
         using (var client = new HttpClient())
         {
+            List<string> LojasIds = ["1", "7", "8", "13", "25", "31"];
+
             var responseCheapSharkApi = await client.SendAsync(request);
             var contentResp = await responseCheapSharkApi.Content.ReadAsStringAsync();
             var ObjResponse = JsonConvert.DeserializeObject<List<Loja>>(contentResp);
 
+            List<Loja> ObjFiltrado = ObjResponse!.Where(o => LojasIds.Contains(o.Id)).ToList();
+
             if (responseCheapSharkApi.IsSuccessStatusCode)
             {
                 response.CodigoHttp = responseCheapSharkApi.StatusCode;
-                response.DadosRetorno = ObjResponse;
+                response.DadosRetorno = ObjFiltrado;
             }
             else
             {

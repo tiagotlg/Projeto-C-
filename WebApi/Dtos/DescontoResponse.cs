@@ -2,11 +2,11 @@ using WebApi.Models;
 
 namespace WebApi.Dtos;
 
-public class DescontoResponse
+public class DescontoResponse(InfoJogo infoJogo, List<LojaMaisBarata> lojaMaisBarata, PrecoMaisBarato precoMaisBarato)
 {
-    public InfoJogo? InfoJogo { get; set; }
+    public InfoJogo InfoJogo { get; set; } = infoJogo;
 
-    public List<LojaMaisBarata>? LojaMaisBarata { get; set; }
+    public List<LojaMaisBarata> LojaMaisBarata { get; set; } = lojaMaisBarata;
 
-    public PrecoMaisBarato? PrecoMaisBarato { get; set; }
+    public PrecoMaisBarato PrecoMaisBarato { get; set; } = precoMaisBarato;
 }

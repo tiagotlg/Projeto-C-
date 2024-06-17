@@ -4,16 +4,10 @@ using WebApi.Interfaces;
 
 namespace WebApi.Service;
 
-public class DescontoService : IDescontoService
+public class DescontoService(IMapper mapper, ICheapSharkApi cheapSharkApi) : IDescontoService
 {
-    private readonly IMapper _mapper;
-    private readonly ICheapSharkApi _cheapSharkApi;
-
-    public DescontoService(IMapper mapper, ICheapSharkApi cheapSharkApi)
-    {
-        _mapper = mapper;
-        _cheapSharkApi = cheapSharkApi;
-    }
+    private readonly IMapper _mapper = mapper;
+    private readonly ICheapSharkApi _cheapSharkApi = cheapSharkApi;
 
     public async Task<ResponseGenerico<DescontoResponse>> BuscaDescontoPorId(string descontoId)
     {
