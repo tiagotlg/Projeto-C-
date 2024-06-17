@@ -105,14 +105,14 @@ public class CheapSharkApiRest : ICheapSharkApi
         return response;
     }
 
-    public async Task<ResponseListaGenerico<ListaDescontos>> BuscaPorDescontos(int lojaId, int precoMaximo, int precoMinimo, int steamRating)
+    public async Task<ResponseListaGenerico<ListaDescontos>> BuscaPorDescontos(int lojaId, int precoMaximo, int precoMinimo, int steamRating, int pageNumber, int pageSize)
     {
         var loja = lojaId != 0 ? "=" + lojaId : "?";
         var maximo = precoMaximo != 0 ? "=" + precoMaximo : "?";
         var minimo = precoMinimo != 0 ? "=" + precoMinimo : "?";
         var rating = steamRating != 0 ? "=" + steamRating : "?";
 
-        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/deals?storeID{loja}&upperPrice{maximo}&lowerPrice{minimo}&steamRating{rating}");
+        var request = new HttpRequestMessage(HttpMethod.Get, $"https://www.cheapshark.com/api/1.0/deals?storeID=-1,7,8,13,25,31&upperPrice{maximo}&lowerPrice{minimo}&steamRating{rating}&pageNumber={pageNumber}&pageSize=25");
         var response = new ResponseListaGenerico<ListaDescontos>();
 
         using (var client = new HttpClient())

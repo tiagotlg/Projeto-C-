@@ -30,9 +30,9 @@ public class DescontoController(IDescontoService descontoService) : ControllerBa
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> BuscaDescontos(int lojaId, int precoMaximo, int precoMinimo, int steamRating)
+    public async Task<IActionResult> BuscaDescontos([FromBody] Request request)
     {
-        var response = await _descontoService.BuscaPorDescontos(lojaId, precoMaximo, precoMinimo, steamRating);
+        var response = await _descontoService.BuscaPorDescontos(request.LojaId, request.PrecoMaximo, request.PrecoMinimo, request.SteamRating, request.PageNumber, request.PageSize);
 
         if (response.CodigoHttp == HttpStatusCode.OK)
             return Ok(response.DadosRetorno);
@@ -54,4 +54,14 @@ public class DescontoController(IDescontoService descontoService) : ControllerBa
         else
             return StatusCode((int)response.CodigoHttp, response.ErroRetorno);
     }
+}
+
+
+public class Request {
+    public int LojaId { get; set;}
+    public int PrecoMaximo { get; set;}
+    public int PrecoMinimo { get; set;}
+    public int SteamRating { get; set;}
+    public int PageNumber { get; set;}
+    public int PageSize { get; set;}
 }

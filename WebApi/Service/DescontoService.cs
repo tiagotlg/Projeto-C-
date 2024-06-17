@@ -15,9 +15,9 @@ public class DescontoService(IMapper mapper, ICheapSharkApi cheapSharkApi) : IDe
         return _mapper.Map<ResponseGenerico<DescontoResponse>>(desconto);
     }
 
-    public async Task<ResponseListaGenerico<ListaDescontosResponse>> BuscaPorDescontos(int lojaId, int precoMaximo, int precoMinimo, int steamRating)
+    public async Task<ResponseListaGenerico<ListaDescontosResponse>> BuscaPorDescontos(int lojaId, int precoMaximo, int precoMinimo, int steamRating , int pageNumber, int pageSize)
     {
-        var descontos = await _cheapSharkApi.BuscaPorDescontos(lojaId, precoMaximo, precoMinimo, steamRating);
+        var descontos = await _cheapSharkApi.BuscaPorDescontos(lojaId, precoMaximo, precoMinimo, steamRating, pageNumber, pageSize);
         return _mapper.Map<ResponseListaGenerico<ListaDescontosResponse>>(descontos);
     }
 
