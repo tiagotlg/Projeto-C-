@@ -35,9 +35,24 @@ public class DescontoController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> BuscaDescontos(int lojaId, int precoMaximo, int precoMinimo)
+    public async Task<IActionResult> BuscaDescontos(int lojaId, int precoMaximo, int precoMinimo, int steamRating)
     {
-        var response = await _descontoService.BuscaPorDescontos(lojaId, precoMaximo, precoMinimo);
+        var response = await _descontoService.BuscaPorDescontos(lojaId, precoMaximo, precoMinimo, steamRating);
+
+        if (response.CodigoHttp == HttpStatusCode.OK)
+            return Ok(response.DadosRetorno);
+        else
+            return StatusCode((int)response.CodigoHttp, response.ErroRetorno);
+    }
+
+    [HttpPost("BuscaPorDescontosMenor")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> BuscaDescontosMenor(int lojaId)
+    {
+        var response = await _descontoService.BuscaPorDescontosMenor(lojaId);
 
         if (response.CodigoHttp == HttpStatusCode.OK)
             return Ok(response.DadosRetorno);

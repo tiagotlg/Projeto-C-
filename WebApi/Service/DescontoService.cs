@@ -21,9 +21,15 @@ public class DescontoService : IDescontoService
         return _mapper.Map<ResponseGenerico<DescontoResponse>>(desconto);
     }
 
-    public async Task<ResponseListaGenerico<ListaDescontosResponse>> BuscaPorDescontos(int lojaId, int precoMaximo, int precoMinimo)
+    public async Task<ResponseListaGenerico<ListaDescontosResponse>> BuscaPorDescontos(int lojaId, int precoMaximo, int precoMinimo, int steamRating)
     {
-        var descontos = await _cheapSharkApi.BuscaPorDescontos(lojaId, precoMaximo, precoMinimo);
+        var descontos = await _cheapSharkApi.BuscaPorDescontos(lojaId, precoMaximo, precoMinimo, steamRating);
+        return _mapper.Map<ResponseListaGenerico<ListaDescontosResponse>>(descontos);
+    }
+
+    public async Task<ResponseListaGenerico<ListaDescontosResponse>> BuscaPorDescontosMenor(int lojaId)
+    {
+        var descontos = await _cheapSharkApi.BuscaPorDescontosMenor(lojaId);
         return _mapper.Map<ResponseListaGenerico<ListaDescontosResponse>>(descontos);
     }
 }
